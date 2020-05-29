@@ -1,0 +1,63 @@
+.bg-prim {
+    background-color: #c8d1db;
+}
+
+.round {
+    border-radius: 5px;
+}
+
+#body {
+    padding: 0px;
+    margin: 0px;
+    background-color: rgb(41, 43, 133);
+}
+
+header img {
+    width: 120px;
+}
+
+.row {
+    height: 400px;
+    margin: 15px;
+}
+
+.col {
+    background-color: cadetblue;
+}
+
+#spacex img {
+    width: 100%;
+    padding: 5px;
+}
+#spacex h3{
+    padding:5px ;
+}
+
+#spacex p {
+    padding: 5px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.twitter-timeline {
+
+    height: 400px;
+    overflow-y: scroll;
+
+}
+
+#twit {
+    padding: 0px;
+    border-radius: 10px;
+    background-color: white;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+footer {
+    height: 50px;
+    background-color: #c8d1db;
+    margin-bottom: 10px;
+}
