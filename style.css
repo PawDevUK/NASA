@@ -4,9 +4,6 @@
 .round {
     border-radius: 10px;
 }
-img {
-  
-}
 #body {
     padding: 0px;
     margin: 0px;
@@ -14,6 +11,7 @@ img {
     background-image: url(img/NoZ6Ke1.png);
     background-repeat:no-repeat
 }
+
 header img {
     width: 120px;
 }
@@ -26,26 +24,32 @@ header img {
 
 .art {
     padding: 5px;
-    max-height: 420px;
+    margin: auto;
+    height: 420px;
     background-color: #c8d1db60;
 }
 
 .imgArticle {
     max-width: 100%;
-    max-height: 300px;
+    height: 295px;
     padding: 5px;
 }
 .big {
     max-width: 100%;
-    margin-top: 20px;
-    max-height:80%;
+    margin-top: 8px;
+    max-height: 367px;
+
 }
 .bigTitle{
-    margin:18px;
+    margin:8px;
 }
 .h4Article {
     margin: auto;
     padding: 5px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .pArticle {
     padding: 5px;
@@ -75,4 +79,9 @@ footer {
     height: 50px;
     background-color: #c8d1db60;
     margin-bottom: 10px;
+}
+footer img{
+    margin: 4px 27px 2px 0px;
+    float: right;
+    height: 40px;
 }

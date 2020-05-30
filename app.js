@@ -33,10 +33,10 @@ function createArticle(query, article, elemntId, big) {
 //index of array in result object 
 //div id
 
-createArticle('Trump', 14, 'trump', false)
+createArticle('Trump 2020', 1, 'trump', false) //14
 createArticle('SpaceX astronauts', 1, 'spacex', false)
 createArticle('sun', 2, 'sun', true)
-createArticle('Earth', 6, 'epic', false)
+createArticle('Earth', 13, 'epic', false)
 createArticle('Moon', 20, 'moon', false)
 createArticle('Moon', 22, 'moon2', false)
 createArticle('Jupiter', 26, 'jupiter', false)
