@@ -1,10 +1,13 @@
+.active{
+    color: white;
+}
 .bg-prim {
-    background-color: #c8d1db60;
+    background:transparent;
 }
 .round {
     border-radius: 10px;
 }
-#body {
+.body {
     padding: 0px;
     margin: 0px;
     background-color: black;
@@ -13,9 +16,14 @@
     font-family: 'Roboto', sans-serif;
 }
 header img {
-    width: 120px;
+    width: 170px;
 }
-#topMain{
+.collapse ul li{
+   
+    font-size: 18px;
+    font-weight: 600;
+}
+#spacex{
     font-size: 18px;
 }
 .topParallax{
@@ -35,6 +43,7 @@ header img {
     background-size: cover;
 }
 .card {
+    border-radius: 0px !important;
     transition: all .2s ease-in-out; 
     text-align: center;
     max-height: 500px;
@@ -43,22 +52,19 @@ header img {
     padding: 0px !important;
 }
 .card:hover{
-    transform: scale(1.025);
-
+    transform: scale(1.0200);
 }
-.cardHover{
-    background-color: #fcfcfc;
-    
-}
-.card-body:hover{
-    background-color: #fcfcfc;
-} 
+/* .cardHover{
+   
+} */
+/* .card-body:hover{
+}  */
 .card img{
     height: 400px;
     object-fit: cover;
 }
 .card-body{
-    padding: 5px !important; 
+    padding: 5px !important;
 }
 .card-body h5{
     margin: 0px;
@@ -86,21 +92,9 @@ h5 #staticBackdropLabel{
     overflow-y: scroll;
 }
 
-.twittRoundTop {
-    height: 15px;
-    border-radius: 10px 10px 0px 0px;
-    background-color: #c8d1db60;
-}
-
-.twittRoundBott {
-    border-radius: 0px 0px 10px 10px;
-    height: 15px;
-    background-color: #c8d1db60;
-}
-
 footer {
     height: 50px;
-    background-color: #c8d1db60;
+    background:transparent;
     margin-bottom: 10px;
 }
 

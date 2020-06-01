@@ -1,4 +1,4 @@
-function bootstrapRow(query, article) {
+function bootstrapRow(query) {
     axios.get(`https://images-api.nasa.gov/search?q=${query}&media_type=image`).then((res) => {
         const element = document.querySelector(`article`)
         let row = document.createElement('div')
@@ -38,8 +38,6 @@ function bootstrapRow(query, article) {
                 modalBody.appendChild(modalImg)
                 modalImg.setAttribute('src',imgLink)
                 modalImg.setAttribute('id','modalImg')
-                // modalImg.classList.add('m-5')
-                // staticBackdrop.classList.add('w-100%')
             })
 
             card.classList.add(`col-${width}`)
@@ -49,14 +47,7 @@ function bootstrapRow(query, article) {
             img.setAttribute('class', 'card-img-top')
             cardBody.setAttribute('class', 'card-body')
             h5.innerText = title;
-            img.addEventListener('mouseover', () => {
-                cardBody.classList.add('cardHover')
-            })
-            img.addEventListener('mouseout', () => {
-                cardBody.classList.remove('cardHover')
-            })
-
-
+          
         }
 
         let rowLayoutThree = [
@@ -76,6 +67,7 @@ function bootstrapRow(query, article) {
             [3, 8],
         ]
         const randThree = Math.floor(Math.random() * 6) + 1
+        
         const randTwo = Math.floor(Math.random() * 3) + 1;
         const ran = Math.random() >= 0.5
         if (ran) {
@@ -89,11 +81,28 @@ function bootstrapRow(query, article) {
 
     })
 }
-
-bootstrapRow('Earth')
 bootstrapRow('SpaceX')
 bootstrapRow('Dragon')
+bootstrapRow('Earth')
 bootstrapRow('Moon')
 bootstrapRow('Sun')
 bootstrapRow('2020')
 bootstrapRow('Astronauts')
+
+const AllLi = document.querySelectorAll('.nav-item')
+for(let li of AllLi){
+    li.addEventListener('click',function(){
+        for(let li of AllLi ){
+            li.classList.remove('active')
+        }
+        this.classList.add('active')
+    })
+}
+
+
+const spacex = AllLi[0]
+const main = document.querySelector('main')
+main.style.display = 'none'
+spacex.addEventListener('click', ()=>{
+if()
+})
