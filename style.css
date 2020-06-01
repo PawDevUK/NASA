@@ -17,16 +17,45 @@ header img {
 }
 
 .card {
+    transition: all .2s ease-in-out; 
+    text-align: center;
+    max-height: 500px;
+    margin-bottom: auto;
     background-color: #c8d1dbc9 !important;
     padding: 0px !important;
-
+}
+.card:hover{
+    transform: scale(1.025);
+    z-index: 100;
+}
+.cardHover{
+    background-color: #fcfcfc;
+    
+}
+.card-body:hover{
+    background-color: #fcfcfc;
+} 
+.card img{
+    height: 400px;
+    object-fit: cover;
 }
 .card-body{
-    height: auto;
-    padding-top: 5px;
-    padding-bottom: 0px;
+    padding: 5px !important; 
 }
-
+.card-body h5{
+    margin: 0px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+h5 #staticBackdropLabel{
+    text-align: center;
+}
+#modalImg{
+    width: 100%;
+    margin: 5px;
+}
 #twit {
     background-color: white;
     height: 390px;
