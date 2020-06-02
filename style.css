@@ -34,6 +34,7 @@ header img {
     color: #f8f9fa;
     margin: 0px;
 }
+
 #spacexArt {
     font-size: 18px;
 }
@@ -50,6 +51,55 @@ header img {
 
 #apodTitle {
     font-size: 20px;
+}
+
+#dynamicMain2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+#dynamicMain3 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#earthHeader {
+    width: 100%;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 10px !important;
+    padding: 5px;
+    text-align: center;
+    font-size: 2rem;
+    background-color: #007bff;
+    color: #f8f9fa;
+    margin: 0px;
+}
+
+.earthWrapper {
+    height: 400px;
+    width: 33%;
+    padding: 1px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.earthText {
+    text-align: center;
+    padding: 7px;
+    background-color: white;
+    font-size: 20px;
+    color: black;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.earthImg {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    object-fit: cover;
 }
 
 .topParallax {

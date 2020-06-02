@@ -113,7 +113,6 @@ function navbarActive() {
 
 function createMain() {
     const AllLi = document.querySelectorAll('#navbarSupportedContent .nav-item')
-    console.log(AllLi);
     const container = document.querySelector('.container')
     for (let i = 1; i < AllLi.length; i++) {
         const main = document.createElement('main')
@@ -166,9 +165,9 @@ function createMainPict() {
     mainDiv.appendChild(titleDiv)
     mainDiv.appendChild(descDiv)
     mainDiv.appendChild(imgEl)
-    header.setAttribute('id','apodHeader')
-    titleDiv.setAttribute('id','apodTitle')
-    descDiv.setAttribute('id','apodDec')
+    header.setAttribute('id', 'apodHeader')
+    titleDiv.setAttribute('id', 'apodTitle')
+    descDiv.setAttribute('id', 'apodDec')
     titleDiv.classList.add('apodText')
     descDiv.classList.add('apodText')
     header.innerText = 'Astronomy Picture of the Day'
@@ -193,9 +192,74 @@ function clearMain(select) {
 }
 
 function createMainEarth() {
+    const main = document.querySelector('#dynamicMain2');
+    const header = document.createElement('div');
+    main.appendChild(header)
+    header.setAttribute('id', 'earthHeader')
+
+   
+
+    header.innerText = 'Earth from Space'
+    axios.get('https://images-api.nasa.gov/search?keywords=earth&media_type=image').then((res) => {
+        const resDat = res.data.collection.items;
+        for (let item of resDat.slice(18,-1)) {
+          
+            const imgDiv = document.createElement('div');
+            const titleDiv = document.createElement('div');
+            const imgEl = document.createElement('img');
+           
+            imgDiv.appendChild(titleDiv)
+            imgDiv.appendChild(imgEl)
+
+            titleDiv.classList.add('earthText')
+            imgEl.classList.add('earthImg')
+            imgDiv.classList.add('earthWrapper')
+
+            imgEl.setAttribute('src',item.links[0].href)
+          
+            titleDiv.innerText = item.data[0].title
+            main.appendChild(imgDiv)
+        }
+
+    })
 
 }
+createMainEarth()
 
 function createMainMoon() {
+    const main = document.querySelector('#dynamicMain3');
+    const header = document.createElement('div');
+    main.appendChild(header)
+    header.setAttribute('id', 'earthHeader')
+
+   
+
+    header.innerText = 'Moon Pictures'
+    axios.get('https://images-api.nasa.gov/search?keywords=moon&media_type=image').then((res) => {
+        const resDat = res.data.collection.items;
+        let num = 0;
+
+        for (let item of resDat.slice(18,45)) {
+            num +=1;
+            const imgDiv = document.createElement('div');
+            const titleDiv = document.createElement('div');
+            const imgEl = document.createElement('img');
+           
+            imgDiv.appendChild(titleDiv)
+            imgDiv.appendChild(imgEl)
+
+            titleDiv.classList.add('earthText')
+            imgEl.classList.add('earthImg')
+            imgDiv.classList.add('earthWrapper')
+
+            imgEl.setAttribute('src',item.links[0].href)
+            imgDiv.setAttribute('id', num);
+            titleDiv.innerText = item.data[0].title
+
+            main.appendChild(imgDiv)
+        }
+
+    })
 
 }
+createMainMoon()
