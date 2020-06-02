@@ -6,7 +6,7 @@ function bootstrapRow(query) {
         element.appendChild(row)
 
         let cardArticle = function (width) {
-            let art = Math.floor(Math.random() * 40) + 1;
+            let art = Math.floor(Math.random() * 80) + 1;
             const resDat = res.data.collection.items[art];
 
             let title = resDat.data[0].title;
@@ -29,15 +29,25 @@ function bootstrapRow(query) {
 
             const modalBody = document.querySelector('#modalBody')
             const modalTitle = document.querySelector('#staticBackdropLabel')
-            const staticBackdrop = document.querySelector('#staticBackdrop')
 
             card.addEventListener('click', () => {
-                modalBody.innerText = resDat.data[0].description;
+                function clearDescFromLinks() {
+                    let str = resDat.data[0].description;
+                    if (!str.includes('<') && !str.includes('http')) {
+                        modalBody.innerText = resDat.data[0].description;
+                    } else if (str.includes('<')) {
+                        modalBody.innerText = str.slice(0, str.indexOf('<'));
+                    } else if (str.includes('http')) {
+                        modalBody.innerText = str.slice(0, str.indexOf('http'));
+                    }
+                }
+                clearDescFromLinks()
                 modalTitle.innerText = title
                 let modalImg = document.createElement('img')
                 modalBody.appendChild(modalImg)
                 modalImg.setAttribute('src', imgLink)
                 modalImg.setAttribute('id', 'modalImg')
+
             })
 
             card.classList.add(`col-${width}`)
@@ -89,7 +99,7 @@ bootstrapRow('Sun')
 bootstrapRow('2020')
 bootstrapRow('Astronauts')
 
-function navbarActive(){
+function navbarActive() {
     const AllLi = document.querySelectorAll('.nav-item')
     for (let li of AllLi) {
         li.addEventListener('click', function () {
@@ -101,14 +111,79 @@ function navbarActive(){
     }
 }
 
-function displayMainNone() {
-    const AllLi = document.querySelectorAll('.nav-item')
-    const main = document.querySelector('main')
-    for (let li of AllLi) {
-        li.addEventListener('click', (e) => {
-            main.style.display = (main.style.display) ? '' : 'none'
-        })
+function createMain() {
+    const AllLi = document.querySelectorAll('#navbarSupportedContent .nav-item')
+    console.log(AllLi);
+    const container = document.querySelector('.container')
+    for (let i = 1; i < AllLi.length; i++) {
+        const main = document.createElement('main')
+        main.setAttribute('id', `dynamicMain${i}`)
+        container.insertBefore(main, container.childNodes[3])
     }
 }
-displayMainNone()
+createMain()
+
+function displayMain() {
+    const AllLi = document.querySelectorAll('.nav-item')
+    const allMain = document.querySelectorAll('main')
+
+    function displayNone() {
+        for (let li of AllLi) {
+            li.addEventListener('click', (e) => {
+                for (let main of allMain) {
+                    main.style.display = 'none'
+                }
+
+            })
+        }
+    }
+    displayNone()
+
+    function mainTriggerDisplay(button, main) {
+        AllLi[button].addEventListener('click', (e) => {
+            allMain[main].style.display = ''
+            clearMain('dynamicMain1')
+            createMainPict()
+        })
+    }
+    mainTriggerDisplay(0, 3)
+    mainTriggerDisplay(1, 2)
+    mainTriggerDisplay(2, 1)
+    mainTriggerDisplay(3, 0)
+}
+displayMain()
 navbarActive()
+
+function createMainPict() {
+    const main = document.querySelector('#dynamicMain1');
+    const div = document.createElement('div');
+    const imgEl = document.createElement('img');
+    console.log(main);
+    console.log(div);
+    main.appendChild(div)
+    div.appendChild(imgEl)
+    axios.get('https://api.nasa.gov/planetary/apod?date=2020-02-09&api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
+        const img = res.data.url;
+        const date = res.data.date;
+        const title = res.data.title;
+        const expl = res.data.explanation;
+        console.log(img);
+        console.log(title);
+        console.log(expl);
+        console.log(date);
+        console.log(res);
+        imgEl.setAttribute('src', img);
+    })
+}
+
+function clearMain(select) {
+    document.querySelector(`#${select}`).innerHTML = ''
+}
+
+function createMainEarth() {
+
+}
+
+function createMainMoon() {
+
+}
