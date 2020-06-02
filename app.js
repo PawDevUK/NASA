@@ -156,17 +156,29 @@ navbarActive()
 
 function createMainPict() {
     const main = document.querySelector('#dynamicMain1');
-    const div = document.createElement('div');
+    const mainDiv = document.createElement('div');
+    const header = document.createElement('div');
+    const titleDiv = document.createElement('div');
+    const descDiv = document.createElement('div');
     const imgEl = document.createElement('img');
-    console.log(main);
-    console.log(div);
-    main.appendChild(div)
-    div.appendChild(imgEl)
-    axios.get('https://api.nasa.gov/planetary/apod?date=2020-02-09&api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
+    main.appendChild(mainDiv)
+    mainDiv.appendChild(header)
+    mainDiv.appendChild(titleDiv)
+    mainDiv.appendChild(descDiv)
+    mainDiv.appendChild(imgEl)
+    header.setAttribute('id','apodHeader')
+    titleDiv.setAttribute('id','apodTitle')
+    descDiv.setAttribute('id','apodDec')
+    titleDiv.classList.add('apodText')
+    descDiv.classList.add('apodText')
+    header.innerText = 'Astronomy Picture of the Day'
+    axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
         const img = res.data.url;
         const date = res.data.date;
         const title = res.data.title;
         const expl = res.data.explanation;
+        descDiv.innerText = expl;
+        titleDiv.innerText = title;
         console.log(img);
         console.log(title);
         console.log(expl);

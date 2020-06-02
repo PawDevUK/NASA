@@ -1,12 +1,15 @@
-.active{
+.active {
     color: white;
 }
+
 .bg-prim {
-    background:transparent;
+    background: transparent;
 }
+
 .round {
     border-radius: 10px;
 }
+
 .body {
     padding: 0px;
     margin: 0px;
@@ -15,18 +18,41 @@
     background-repeat: no-repeat;
     font-family: 'Roboto', sans-serif;
 }
+
 header img {
     width: 170px;
 }
-.collapse ul li{
-   
-    font-size: 18px;
-    font-weight: 600;
+
+#apodHeader {
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 10px !important;
+    padding: 10px;
+    text-align: center;
+    font-size: 2rem;
+    background-color: #007bff;
+    color: #f8f9fa;
+    margin: 0px;
 }
-#spacexArt{
+#spacexArt {
     font-size: 18px;
 }
-.topParallax{
+
+#dynamicMain1 img {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.apodText {
+    background-color: white;
+    padding: 20px;
+}
+
+#apodTitle {
+    font-size: 20px;
+}
+
+.topParallax {
     background-image: url("img/crewDragon.jpg");
     height: 200px;
     background-attachment: fixed;
@@ -34,7 +60,8 @@ header img {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.midParallax{
+
+.midParallax {
     background-image: url("img/falcon-TA.jpg");
     height: 400px;
     background-attachment: fixed;
@@ -42,50 +69,55 @@ header img {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .card {
     border-radius: 0px !important;
-    transition: all .2s ease-in-out; 
+    transition: all .2s ease-in-out;
     text-align: center;
     max-height: 500px;
     margin-bottom: auto;
     background-color: #ffffff !important;
     padding: 0px !important;
 }
-.card:hover{
+
+.card:hover {
     transform: scale(1.0200);
 }
-/* .cardHover{
-   
-} */
-/* .card-body:hover{
-}  */
-.card img{
+
+.card img {
     height: 400px;
     object-fit: cover;
 }
-.card-body{
+
+.card-body {
     padding: 5px !important;
 }
-.card-body h5{
+
+.card-body h5 {
     margin: 0px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
-h5 #staticBackdropLabel{
+
+h5 #staticBackdropLabel {
     text-align: center;
 }
-#modalImg{
+
+#modalImg {
     width: 100%;
     margin: 5px;
 }
-.astroImg{
+
+.astroImg {
     max-height: 450px;
 }
+
 .modal-lg {
     max-width: 680px !important;
 }
+
 #twit {
     background-color: white;
     height: 390px;
@@ -94,7 +126,7 @@ h5 #staticBackdropLabel{
 
 footer {
     height: 50px;
-    background:transparent;
+    background: transparent;
     margin-bottom: 10px;
 }
 
