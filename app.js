@@ -8,16 +8,12 @@ function bootstrapRow(query) {
         let cardArticle = function (width) {
             let art = Math.floor(Math.random() * 80) + 1;
             const resDat = res.data.collection.items[art];
-
             let title = resDat.data[0].title;
             let imgLink = resDat.links[0].href
-
-
             let card = document.createElement('div')
             let cardBody = document.createElement('div')
             let img = document.createElement('img')
             let h5 = document.createElement('h5')
-
             row.appendChild(card)
             card.appendChild(img)
             card.appendChild(cardBody)
@@ -25,11 +21,8 @@ function bootstrapRow(query) {
             card.setAttribute('class', 'card')
             card.setAttribute('data-toggle', 'modal')
             card.setAttribute('data-target', '#staticBackdrop')
-
-
             const modalBody = document.querySelector('#modalBody')
             const modalTitle = document.querySelector('#staticBackdropLabel')
-
             card.addEventListener('click', () => {
                 function clearDescFromLinks() {
                     let str = resDat.data[0].description;
@@ -47,9 +40,7 @@ function bootstrapRow(query) {
                 modalBody.appendChild(modalImg)
                 modalImg.setAttribute('src', imgLink)
                 modalImg.setAttribute('id', 'modalImg')
-
             })
-
             card.classList.add(`col-${width}`)
             card.classList.add(`mx-auto`)
             row.classList.add(`p-2`)
@@ -57,7 +48,6 @@ function bootstrapRow(query) {
             img.setAttribute('class', 'card-img-top')
             cardBody.setAttribute('class', 'card-body')
             h5.innerText = title;
-
         }
 
         let rowLayoutThree = [
@@ -178,11 +168,6 @@ function createMainPict() {
         const expl = res.data.explanation;
         descDiv.innerText = expl;
         titleDiv.innerText = title;
-        console.log(img);
-        console.log(title);
-        console.log(expl);
-        console.log(date);
-        console.log(res);
         imgEl.setAttribute('src', img);
     })
 }
@@ -196,9 +181,6 @@ function createMainEarth() {
     const header = document.createElement('div');
     main.appendChild(header)
     header.setAttribute('id', 'earthHeader')
-
-   
-
     header.innerText = 'Earth from Space'
     axios.get('https://images-api.nasa.gov/search?keywords=earth&media_type=image').then((res) => {
         const resDat = res.data.collection.items;
@@ -231,31 +213,23 @@ function createMainMoon() {
     const header = document.createElement('div');
     main.appendChild(header)
     header.setAttribute('id', 'earthHeader')
-
-   
-
     header.innerText = 'Moon Pictures'
     axios.get('https://images-api.nasa.gov/search?keywords=moon&media_type=image').then((res) => {
         const resDat = res.data.collection.items;
         let num = 0;
-
         for (let item of resDat.slice(18,45)) {
             num +=1;
             const imgDiv = document.createElement('div');
             const titleDiv = document.createElement('div');
             const imgEl = document.createElement('img');
-           
             imgDiv.appendChild(titleDiv)
             imgDiv.appendChild(imgEl)
-
             titleDiv.classList.add('earthText')
             imgEl.classList.add('earthImg')
             imgDiv.classList.add('earthWrapper')
-
             imgEl.setAttribute('src',item.links[0].href)
             imgDiv.setAttribute('id', num);
             titleDiv.innerText = item.data[0].title
-
             main.appendChild(imgDiv)
         }
 
