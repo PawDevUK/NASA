@@ -127,18 +127,23 @@ function displayMain() {
         }
     }
     displayNone()
+    function clearMain(select) {
+        document.querySelector(`#${select}`).innerHTML = ''
+    }
 
-    function mainTriggerDisplay(button, main) {
+    function mainTriggerDisplay(button, main, func) {
         AllLi[button].addEventListener('click', (e) => {
             allMain[main].style.display = ''
-            clearMain('dynamicMain1')
-            createMainPict()
+            clearMain('dynamicMain1');
+            clearMain('dynamicMain2');
+            clearMain('dynamicMain3');
+            (func)?func():null;
         })
     }
     mainTriggerDisplay(0, 3)
-    mainTriggerDisplay(1, 2)
-    mainTriggerDisplay(2, 1)
-    mainTriggerDisplay(3, 0)
+    mainTriggerDisplay(1, 2,createMainPict)
+    mainTriggerDisplay(2, 1,createMainEarth)
+    mainTriggerDisplay(3, 0,createMainMoon)
 }
 displayMain()
 navbarActive()
@@ -172,9 +177,7 @@ function createMainPict() {
     })
 }
 
-function clearMain(select) {
-    document.querySelector(`#${select}`).innerHTML = ''
-}
+
 
 function createMainEarth() {
     const main = document.querySelector('#dynamicMain2');
@@ -206,7 +209,7 @@ function createMainEarth() {
     })
 
 }
-createMainEarth()
+
 
 function createMainMoon() {
     const main = document.querySelector('#dynamicMain3');
@@ -236,4 +239,3 @@ function createMainMoon() {
     })
 
 }
-createMainMoon()
