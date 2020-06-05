@@ -22,9 +22,6 @@
 header img {
     width: 170px;
 }
-
-
-
 #spacexArt {
     font-size: 18px;
 }
@@ -42,12 +39,10 @@ header img {
 #apodTitle {
     font-size: 20px;
 }
-
 .main {
     display: flex;
     flex-wrap: wrap;
 }
-
 .mainHeader {
     width: 100%;
     font-weight: 500;
@@ -60,20 +55,6 @@ header img {
     color: #f8f9fa;
     margin: 0px;
 }
-
-/* #earthHeader {
-    width: 100%;
-    font-weight: 500;
-    line-height: 1.2;
-    margin-top: 10px !important;
-    padding: 5px;
-    text-align: center;
-    font-size: 2rem;
-    background-color: #007bff;
-    color: #f8f9fa;
-    margin: 0px;
-} */
-
 .Wrapper {
     height: 400px;
     width: 33%;

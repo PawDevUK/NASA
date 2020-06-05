@@ -4,7 +4,6 @@ function bootstrapRow(query) {
         let row = document.createElement('div')
         row.setAttribute('class', 'row')
         element.appendChild(row)
-
         let cardArticle = function (width) {
             let art = Math.floor(Math.random() * 80) + 1;
             const resDat = res.data.collection.items[art];
@@ -108,12 +107,12 @@ function createMain() {
         const main = document.createElement('main')
         main.setAttribute('id', `dynamicMain${i}`)
         main.classList.add('main')
+        main.classList.add('display')
         container.insertBefore(main, container.childNodes[3])
     }
 
 }
 createMain()
-
 
 function displayMain() {
     const AllLi = document.querySelectorAll('.nav-item')
@@ -164,9 +163,9 @@ function createMainPict() {
     mainDiv.appendChild(titleDiv)
     mainDiv.appendChild(descDiv)
     mainDiv.appendChild(imgEl)
-    // header.setAttribute('id', 'apodHeader')
     titleDiv.setAttribute('id', 'apodTitle')
     descDiv.setAttribute('id', 'apodDec')
+    main.classList.remove('main')
     titleDiv.classList.add('apodText')
     descDiv.classList.add('apodText')
     header.classList.add('mainHeader')
@@ -181,14 +180,10 @@ function createMainPict() {
         imgEl.setAttribute('src', img);
     })
 }
-
-
-
 function createMainEarth() {
     const main = document.querySelector('#dynamicMain2');
     const header = document.createElement('div');
     main.appendChild(header)
-    // header.setAttribute('id', 'earthHeader')
     header.classList.add('mainHeader')
     header.innerText = 'Earth from Space'
     axios.get('https://images-api.nasa.gov/search?keywords=earth&media_type=image').then((res) => {
@@ -206,17 +201,12 @@ function createMainEarth() {
             titleDiv.innerText = item.data[0].title
             main.appendChild(imgDiv)
         }
-
     })
-
 }
-
-
 function createMainMoon() {
     const main = document.querySelector('#dynamicMain3');
     const header = document.createElement('div');
     main.appendChild(header)
-    // header.setAttribute('id', 'earthHeader')
     header.classList.add('mainHeader')
     header.innerText = 'Moon Pictures'
     axios.get('https://images-api.nasa.gov/search?keywords=moon&media_type=image').then((res) => {
@@ -278,7 +268,7 @@ formImp.addEventListener('input', (e) => {
 searchBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const main = document.querySelector('#dynamicMain4')
-    const allMain = document.querySelectorAll('.main')
+    const allMain = document.querySelectorAll('.display')
     document.querySelectorAll('main')[4].style.display = 'none';
     for (let el of allMain) {
         el.style.display = 'none';
