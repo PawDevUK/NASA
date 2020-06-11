@@ -1,45 +1,77 @@
 function bootstrapRow(query) {
     axios.get(`https://images-api.nasa.gov/search?q=${query}&media_type=image`).then((res) => {
-        const element = document.querySelector(`article`)
-        let row = document.createElement('div')
-        row.setAttribute('class', 'row')
-        element.appendChild(row)
-        let cardArticle = function (width) {
-            let art = Math.floor(Math.random() * 80) + 1;
-            const resDat = res.data.collection.items[art];
-            let title = resDat.data[0].title;
-            let imgLink = resDat.links[0].href
-            let card = document.createElement('div')
-            let cardBody = document.createElement('div')
-            let img = document.createElement('img')
-            let h5 = document.createElement('h5')
-            row.appendChild(card)
-            card.appendChild(img)
-            card.appendChild(cardBody)
-            cardBody.appendChild(h5)
-            card.setAttribute('class', 'card')
-            card.setAttribute('data-toggle', 'modal')
-            card.setAttribute('data-target', '#staticBackdrop')
-            const modalBody = document.querySelector('#modalBody')
-            const modalTitle = document.querySelector('#staticBackdropLabel')
-            card.addEventListener('click', () => {
-                function clearDescFromLinks() {
-                    let str = resDat.data[0].description;
-                    if (!str.includes('<') && !str.includes('http')) {
-                        modalBody.innerText = resDat.data[0].description;
-                    } else if (str.includes('<')) {
-                        modalBody.innerText = str.slice(0, str.indexOf('<'));
-                    } else if (str.includes('http')) {
-                        modalBody.innerText = str.slice(0, str.indexOf('http'));
+        let randArt;
+        let resDat;
+        let title;
+        let imgLink;
+        let card;
+        let cardBody;
+        let img;
+        let h5;
+
+        function makeRowAppend(){
+            const element = document.querySelector(`article`)
+            const row = document.createElement('div')
+            row.setAttribute('class', 'row')
+            row.classList.add('cardRow')
+            element.appendChild(row)
+            return row
+        }
+        let row = makeRowAppend();
+        
+       
+        function makeCardAppend(width,res) {
+            (function getData(res){
+                (function randomArticle(){
+                    randArt = Math.floor(Math.random() * 80) + 1;
+                })();
+                resDat = res.data.collection.items[randArt];
+                title = resDat.data[0].title;
+                imgLink = resDat.links[0].href;
+            })(res);
+
+            (function makeCard(){
+                 card = document.createElement('div');
+                 cardBody = document.createElement('div');
+                 img = document.createElement('img');
+                 h5 = document.createElement('h5');
+            })();
+            
+            (function appendCard(){
+                row.appendChild(card)
+                card.appendChild(img)
+                card.appendChild(cardBody)
+                cardBody.appendChild(h5)
+            })();
+
+            (function createAppendModal(){
+                card.setAttribute('class', 'card')
+                card.setAttribute('data-toggle', 'modal')
+                card.setAttribute('data-target', '#staticBackdrop')
+                const modalBody = document.querySelector('#modalBody')
+                const modalTitle = document.querySelector('#staticBackdropLabel')
+                card.addEventListener('click', () => {
+                    function clearDescFromLinks() {
+                        let str = resDat.data[0].description;
+                        if (!str.includes('<') && !str.includes('http')) {
+                            modalBody.innerText = resDat.data[0].description;
+                        } else if (str.includes('<')) {
+                            modalBody.innerText = str.slice(0, str.indexOf('<'));
+                        } else if (str.includes('http')) {
+                            modalBody.innerText = str.slice(0, str.indexOf('http'));
+                        }
                     }
-                }
-                clearDescFromLinks()
-                modalTitle.innerText = title
-                let modalImg = document.createElement('img')
-                modalBody.appendChild(modalImg)
-                modalImg.setAttribute('src', imgLink)
-                modalImg.setAttribute('id', 'modalImg')
-            })
+                    clearDescFromLinks()
+                    modalTitle.innerText = title
+                    let modalImg = document.createElement('img')
+                    modalBody.appendChild(modalImg)
+                    modalImg.setAttribute('src', imgLink)
+                    modalImg.setAttribute('id', 'modalImg')
+                })
+
+
+            })()
+            
             card.classList.add(`col-${width}`)
             card.classList.add(`mx-auto`)
             row.classList.add(`p-2`)
@@ -68,12 +100,12 @@ function bootstrapRow(query) {
         const randTwo = Math.floor(Math.random() * 3) + 1;
         const ran = Math.random() >= 0.5
         if (ran) {
-            cardArticle(rowLayoutThree[randThree][0])
-            cardArticle(rowLayoutThree[randThree][1])
-            cardArticle(rowLayoutThree[randThree][2])
+            makeCardAppend(rowLayoutThree[randThree][0],res)
+            makeCardAppend(rowLayoutThree[randThree][1],res)
+            makeCardAppend(rowLayoutThree[randThree][2],res)
         } else {
-            cardArticle(rowLayoutTwo[randTwo][0])
-            cardArticle(rowLayoutTwo[randTwo][1])
+            makeCardAppend(rowLayoutTwo[randTwo][0],res)
+            makeCardAppend(rowLayoutTwo[randTwo][1],res)
         }
 
     })
@@ -98,7 +130,7 @@ function navbarActive() {
     }
 }
 
-function createMain() {
+(function createMain() {
     const AllLi = document.querySelectorAll('#navbarSupportedContent .nav-item')
     const container = document.querySelector('.container')
     for (let i = 1; i < AllLi.length + 1; i++) {
@@ -109,8 +141,8 @@ function createMain() {
         container.insertBefore(main, container.childNodes[3])
     }
 
-}
-createMain()
+})()
+
 
 function displayMain() {
     const AllLi = document.querySelectorAll('.nav-item')
