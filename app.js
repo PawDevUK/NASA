@@ -59,6 +59,7 @@ function bootstrapRow(query) {
                 const modalImg = document.createElement('img');
                 const modalBody = document.querySelector('#modalBody');
                 const modalTitle = document.querySelector('#staticBackdropLabel');
+
                 card.addEventListener('click',
                     function clearModalDescFromLinks() {
                         let str = resDat.data[0].description;
@@ -71,102 +72,101 @@ function bootstrapRow(query) {
                         }
                     }
                 );
-                card.addEventListener('click', function createAppendModal() {
-                    modalBody.appendChild(modalImg)
+                card.addEventListener('click', function feedAppendModal() {
                     modalTitle.innerText = title;
-                    modalImg.setAttribute('src', imgLink)
-                    modalImg.setAttribute('id', 'modalImg')
+                    modalBody.appendChild(modalImg);
+                    modalImg.setAttribute('src', imgLink);
+                    modalImg.setAttribute('id', 'modalImg');
                 })
             })()
-
-
         };
-        let rowLayoutThree = [
-            [3, 5, 3],
-            [5, 3, 3],
-            [3, 3, 5],
-            [3, 4, 4],
-            [3, 4, 4],
-            [4, 3, 4],
-            [4, 4, 3],
-        ]
-        const rowLayoutTwo = [
-            [6, 5],
-            [5, 6],
-            [8, 3],
-            [3, 8],
-        ]
-        const randThree = Math.floor(Math.random() * 6) + 1
 
-        const randTwo = Math.floor(Math.random() * 3) + 1;
-        const ran = Math.random() >= 0.5
-        if (ran) {
-            makeCardAppend(rowLayoutThree[randThree][0], res)
-            makeCardAppend(rowLayoutThree[randThree][1], res)
-            makeCardAppend(rowLayoutThree[randThree][2], res)
-        } else {
-            makeCardAppend(rowLayoutTwo[randTwo][0], res)
-            makeCardAppend(rowLayoutTwo[randTwo][1], res)
-        }
+        (function generateRandRowLayout(){
+            let rowLayoutThree = [
+                [3, 5, 3],
+                [5, 3, 3],
+                [3, 3, 5],
+                [3, 4, 4],
+                [3, 4, 4],
+                [4, 3, 4],
+                [4, 4, 3],
+            ];
+            const rowLayoutTwo = [
+                [6, 5],
+                [5, 6],
+                [8, 3],
+                [3, 8],
+            ];
+            const randThree = Math.floor(Math.random() * 6) + 1;
+            const randTwo = Math.floor(Math.random() * 3) + 1;
+            const ran = Math.random() >= 0.5;
+            if (ran) {
+                makeCardAppend(rowLayoutThree[randThree][0], res);
+                makeCardAppend(rowLayoutThree[randThree][1], res);
+                makeCardAppend(rowLayoutThree[randThree][2], res);
+            } else {
+                makeCardAppend(rowLayoutTwo[randTwo][0], res);
+                makeCardAppend(rowLayoutTwo[randTwo][1], res);
+            }
+        })();
 
     })
 }
-bootstrapRow('SpaceX')
-bootstrapRow('Dragon')
-bootstrapRow('Earth')
-bootstrapRow('Moon')
-bootstrapRow('Sun')
-bootstrapRow('2020')
-bootstrapRow('Astronauts')
+bootstrapRow('SpaceX');
+bootstrapRow('Dragon');
+bootstrapRow('Earth');
+bootstrapRow('Moon');
+bootstrapRow('Sun');
+bootstrapRow('2020');
+bootstrapRow('Astronauts');
 
 function navbarActive() {
-    const AllLi = document.querySelectorAll('.nav-item')
+    const AllLi = document.querySelectorAll('.nav-item');
     for (let li of AllLi) {
         li.addEventListener('click', function () {
             for (let li of AllLi) {
-                li.classList.remove('active')
+                li.classList.remove('active');
             }
-            this.classList.add('active')
+            this.classList.add('active');
         })
     }
 }
 
 (function createMain() {
-    const AllLi = document.querySelectorAll('#navbarSupportedContent .nav-item')
-    const container = document.querySelector('.container')
+    const AllLi = document.querySelectorAll('#navbarSupportedContent .nav-item');
+    const container = document.querySelector('.container');
     for (let i = 1; i < AllLi.length + 1; i++) {
-        const main = document.createElement('main')
-        main.setAttribute('id', `dynamicMain${i}`)
-        main.classList.add('main')
-        main.classList.add('display')
-        container.insertBefore(main, container.childNodes[3])
+        const main = document.createElement('main');
+        main.setAttribute('id', `dynamicMain${i}`);
+        main.classList.add('main');
+        main.classList.add('display');
+        container.insertBefore(main, container.childNodes[3]);
     }
 
 })()
 
 
 function displayMain() {
-    const AllLi = document.querySelectorAll('.nav-item')
-    const allMain = document.querySelectorAll('main')
-
+    const AllLi = document.querySelectorAll('.nav-item');
+    const allMain = document.querySelectorAll('main');
     function displayNone() {
         for (let li of AllLi) {
             li.addEventListener('click', (e) => {
                 for (let main of allMain) {
-                    main.style.display = 'none'
+                    main.style.display = 'none';
                 }
             })
         }
     }
-    displayNone()
+    displayNone();
 
     function clearMain(select) {
-        document.querySelector(`#${select}`).innerHTML = ''
+        document.querySelector(`#${select}`).innerHTML = '';
     }
 
     function mainTriggerDisplay(button, main, func) {
         AllLi[button].addEventListener('click', (e) => {
-            allMain[main].style.display = ''
+            allMain[main].style.display = '';
             clearMain('dynamicMain1');
             clearMain('dynamicMain2');
             clearMain('dynamicMain3');
@@ -174,13 +174,13 @@ function displayMain() {
             (func) ? func(): null;
         })
     }
-    mainTriggerDisplay(0, 4, )
-    mainTriggerDisplay(1, 3, createMainPict)
-    mainTriggerDisplay(2, 2, createMainEarth)
-    mainTriggerDisplay(3, 1, createMainMoon)
+    mainTriggerDisplay(0, 4);
+    mainTriggerDisplay(1, 3, createMainPict);
+    mainTriggerDisplay(2, 2, createMainEarth);
+    mainTriggerDisplay(3, 1, createMainMoon);
 }
-displayMain()
-navbarActive()
+displayMain();
+navbarActive();
 
 function createMainPict() {
     const main = document.querySelector('#dynamicMain1');
@@ -189,18 +189,18 @@ function createMainPict() {
     const titleDiv = document.createElement('div');
     const descDiv = document.createElement('div');
     const imgEl = document.createElement('img');
-    main.appendChild(mainDiv)
-    mainDiv.appendChild(header)
-    mainDiv.appendChild(titleDiv)
-    mainDiv.appendChild(descDiv)
-    mainDiv.appendChild(imgEl)
-    titleDiv.setAttribute('id', 'apodTitle')
-    descDiv.setAttribute('id', 'apodDec')
-    main.classList.remove('main')
-    titleDiv.classList.add('apodText')
-    descDiv.classList.add('apodText')
-    header.classList.add('mainHeader')
-    header.innerText = 'Astronomy Picture of the Day'
+    main.appendChild(mainDiv);
+    mainDiv.appendChild(header);
+    mainDiv.appendChild(titleDiv);
+    mainDiv.appendChild(descDiv);
+    mainDiv.appendChild(imgEl);
+    titleDiv.setAttribute('id', 'apodTitle');
+    descDiv.setAttribute('id', 'apodDec');
+    main.classList.remove('main');
+    titleDiv.classList.add('apodText');
+    descDiv.classList.add('apodText');
+    header.classList.add('mainHeader');
+    header.innerText = 'Astronomy Picture of the Day';
     axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
         const img = res.data.url;
         const date = res.data.date;
