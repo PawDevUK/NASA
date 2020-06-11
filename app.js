@@ -1,28 +1,25 @@
 function bootstrapRow(query) {
     axios.get(`https://images-api.nasa.gov/search?q=${query}&media_type=image`).then((res) => {
-        let randArt;
-        let resDat;
-        let title;
-        let imgLink;
-        let card;
-        let cardBody;
-        let img;
-        let h5;
-
-        function makeRowAppend(){
+        let row = (function makeRowAppend() {
             const element = document.querySelector(`article`)
             const row = document.createElement('div')
             row.setAttribute('class', 'row')
             row.classList.add('cardRow')
             element.appendChild(row)
             return row
-        }
-        let row = makeRowAppend();
-        
-       
-        function makeCardAppend(width,res) {
-            (function getData(res){
-                (function randomArticle(){
+        })();
+
+        function makeCardAppend(width, res) {
+            let resDat;
+            let title;
+            let img;
+            let h5;
+            let card;
+            let imgLink;
+            let cardBody;
+            (function getData(res) {
+                let randArt;
+                (function randomArticle() {
                     randArt = Math.floor(Math.random() * 80) + 1;
                 })();
                 resDat = res.data.collection.items[randArt];
@@ -30,28 +27,40 @@ function bootstrapRow(query) {
                 imgLink = resDat.links[0].href;
             })(res);
 
-            (function makeCard(){
-                 card = document.createElement('div');
-                 cardBody = document.createElement('div');
-                 img = document.createElement('img');
-                 h5 = document.createElement('h5');
+            (function makeCard() {
+                card = document.createElement('div');
+                cardBody = document.createElement('div');
+                img = document.createElement('img');
+                h5 = document.createElement('h5');
             })();
-            
-            (function appendCard(){
+            (function setCardAttribute() {
+                card.setAttribute('class', 'card')
+                card.classList.add(`col-${width}`)
+                card.classList.add(`mx-auto`)
+                row.classList.add(`p-2`)
+                img.setAttribute('src', imgLink)
+                img.setAttribute('class', 'card-img-top')
+                cardBody.setAttribute('class', 'card-body')
+                h5.innerText = title;
+                (function addModalAttributes() {
+                    card.setAttribute('data-toggle', 'modal')
+                    card.setAttribute('data-target', '#staticBackdrop')
+                })();
+            })();
+
+            (function appendCard() {
                 row.appendChild(card)
                 card.appendChild(img)
                 card.appendChild(cardBody)
                 cardBody.appendChild(h5)
             })();
 
-            (function createAppendModal(){
-                card.setAttribute('class', 'card')
-                card.setAttribute('data-toggle', 'modal')
-                card.setAttribute('data-target', '#staticBackdrop')
-                const modalBody = document.querySelector('#modalBody')
-                const modalTitle = document.querySelector('#staticBackdropLabel')
-                card.addEventListener('click', () => {
-                    function clearDescFromLinks() {
+            (function modal() {
+                const modalImg = document.createElement('img');
+                const modalBody = document.querySelector('#modalBody');
+                const modalTitle = document.querySelector('#staticBackdropLabel');
+                card.addEventListener('click',
+                    function clearModalDescFromLinks() {
                         let str = resDat.data[0].description;
                         if (!str.includes('<') && !str.includes('http')) {
                             modalBody.innerText = resDat.data[0].description;
@@ -61,25 +70,17 @@ function bootstrapRow(query) {
                             modalBody.innerText = str.slice(0, str.indexOf('http'));
                         }
                     }
-                    clearDescFromLinks()
-                    modalTitle.innerText = title
-                    let modalImg = document.createElement('img')
+                );
+                card.addEventListener('click', function createAppendModal() {
                     modalBody.appendChild(modalImg)
+                    modalTitle.innerText = title;
                     modalImg.setAttribute('src', imgLink)
                     modalImg.setAttribute('id', 'modalImg')
                 })
-
-
             })()
-            
-            card.classList.add(`col-${width}`)
-            card.classList.add(`mx-auto`)
-            row.classList.add(`p-2`)
-            img.setAttribute('src', imgLink)
-            img.setAttribute('class', 'card-img-top')
-            cardBody.setAttribute('class', 'card-body')
-            h5.innerText = title;
-        }
+
+
+        };
         let rowLayoutThree = [
             [3, 5, 3],
             [5, 3, 3],
@@ -100,12 +101,12 @@ function bootstrapRow(query) {
         const randTwo = Math.floor(Math.random() * 3) + 1;
         const ran = Math.random() >= 0.5
         if (ran) {
-            makeCardAppend(rowLayoutThree[randThree][0],res)
-            makeCardAppend(rowLayoutThree[randThree][1],res)
-            makeCardAppend(rowLayoutThree[randThree][2],res)
+            makeCardAppend(rowLayoutThree[randThree][0], res)
+            makeCardAppend(rowLayoutThree[randThree][1], res)
+            makeCardAppend(rowLayoutThree[randThree][2], res)
         } else {
-            makeCardAppend(rowLayoutTwo[randTwo][0],res)
-            makeCardAppend(rowLayoutTwo[randTwo][1],res)
+            makeCardAppend(rowLayoutTwo[randTwo][0], res)
+            makeCardAppend(rowLayoutTwo[randTwo][1], res)
         }
 
     })
@@ -210,6 +211,7 @@ function createMainPict() {
         imgEl.setAttribute('src', img);
     })
 }
+
 function createMainEarth() {
     const main = document.querySelector('#dynamicMain2');
     const header = document.createElement('div');
@@ -233,6 +235,7 @@ function createMainEarth() {
         }
     })
 }
+
 function createMainMoon() {
     const main = document.querySelector('#dynamicMain3');
     const header = document.createElement('div');
