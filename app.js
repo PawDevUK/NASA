@@ -48,7 +48,6 @@ function bootstrapRow(query) {
             cardBody.setAttribute('class', 'card-body')
             h5.innerText = title;
         }
-
         let rowLayoutThree = [
             [3, 5, 3],
             [5, 3, 3],
@@ -58,7 +57,6 @@ function bootstrapRow(query) {
             [4, 3, 4],
             [4, 4, 3],
         ]
-
         const rowLayoutTwo = [
             [6, 5],
             [5, 6],
