@@ -155,11 +155,17 @@ h5 #staticBackdropLabel {
 }
 
 footer {
+    justify-content: flex-end !important;
+    display: flex !important;
     height: 50px;
     background: transparent;
     margin-bottom: 10px;
 }
 
+#year{
+    color: #fff;
+    margin: auto;
+}
 footer img {
     margin: 5px 27px 2px 0px;
     float: right;

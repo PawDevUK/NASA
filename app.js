@@ -183,7 +183,7 @@ function createMainPict() {
     const titleDiv = document.createElement('div');
     const descDiv = document.createElement('div');
     const imgEl = document.createElement('img');
-    (function appendElements(){
+    (function appendElements() {
         main.appendChild(mainDiv);
         mainDiv.appendChild(header);
         mainDiv.appendChild(titleDiv);
@@ -191,7 +191,7 @@ function createMainPict() {
         mainDiv.appendChild(imgEl);
     })();
 
-    (function setAttributes(){
+    (function setAttributes() {
         titleDiv.setAttribute('id', 'apodTitle');
         descDiv.setAttribute('id', 'apodDec');
         main.classList.remove('main');
@@ -200,7 +200,7 @@ function createMainPict() {
         header.classList.add('mainHeader');
     })();
 
-    (function feedApodFromApi(){
+    (function feedApodFromApi() {
         axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
             header.innerText = 'Astronomy Picture of the Day';
             const img = res.data.url;
@@ -214,7 +214,7 @@ function createMainPict() {
     })()
 }
 
-function createMainEarth(){
+function createMainEarth() {
     const main = document.querySelector('#dynamicMain2');
     const header = document.createElement('div');
     main.appendChild(header)
@@ -294,14 +294,14 @@ function search(formValue = 'nasa') {
 }
 
 
-(function searchForm(){
+(function searchForm() {
     let formValue;
     const formImp = document.querySelector('form input')
     const searchBtn = document.querySelector('#searchBtn')
     formImp.addEventListener('input', (e) => {
         formValue = e.target.value;
     })
-    
+
     searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const main = document.querySelector('#dynamicMain4')
@@ -315,9 +315,25 @@ function search(formValue = 'nasa') {
         main.style.display = '';
         const AllLi = document.querySelectorAll('.nav-item')
         for (let el of AllLi) {
-    
+
             el.classList.remove('active')
         }
         search(formValue);
     })
 })();
+
+(function footerCurrentYear() {
+    let year;
+    (function getYear() {
+        year = new Date().getFullYear()
+    })();
+    (function appendYearToFooter() {
+        const footer = document.querySelector('footer');
+        const footerDiv = document.createElement('div')
+        footerDiv.setAttribute('id', 'year');
+        footer.prepend(footerDiv)
+    })();
+    (function feedYear() {
+        document.querySelector('#year').innerText = year;
+    })();
+})()
