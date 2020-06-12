@@ -116,10 +116,10 @@ function bootstrapRow(query) {
     for (let item of ['SpaceX', 'Dragon', 'Earth', 'Moon', 'Sun', '2020', 'Astronauts']) {
         bootstrapRow(item);
     }
-})()
+})();
 
 
-function navbarActive() {
+(function navbarActive() {
     const AllLi = document.querySelectorAll('.nav-item');
     for (let li of AllLi) {
         li.addEventListener('click', function () {
@@ -129,7 +129,7 @@ function navbarActive() {
             this.classList.add('active');
         })
     }
-}
+})();
 
 (function createMain() {
     const AllLi = document.querySelectorAll('#navbarSupportedContent .nav-item');
@@ -141,15 +141,13 @@ function navbarActive() {
         main.classList.add('display');
         container.insertBefore(main, container.childNodes[3]);
     }
+})();
 
-})()
-
-
-function displayMain() {
+(function displayMain() {
     const AllLi = document.querySelectorAll('.nav-item');
     const allMain = document.querySelectorAll('main');
 
-    function displayNone() {
+    (function displayAllNone() {
         for (let li of AllLi) {
             li.addEventListener('click', (e) => {
                 for (let main of allMain) {
@@ -157,20 +155,18 @@ function displayMain() {
                 }
             })
         }
-    }
-    displayNone();
+    })();
 
-    function clearMain(select) {
-        document.querySelector(`#${select}`).innerHTML = '';
+    function clearDynamicMain(select) {
+        document.querySelector(`#dynamicMain${select}`).innerHTML = '';
     }
 
     function mainTriggerDisplay(button, main, func) {
         AllLi[button].addEventListener('click', (e) => {
+            for (let i = 1; i < 4; i++) {
+                clearDynamicMain(i);
+            }
             allMain[main].style.display = '';
-            clearMain('dynamicMain1');
-            clearMain('dynamicMain2');
-            clearMain('dynamicMain3');
-            clearMain('dynamicMain4');
             (func) ? func(): null;
         })
     }
@@ -178,9 +174,7 @@ function displayMain() {
     mainTriggerDisplay(1, 3, createMainPict);
     mainTriggerDisplay(2, 2, createMainEarth);
     mainTriggerDisplay(3, 1, createMainMoon);
-}
-displayMain();
-navbarActive();
+})()
 
 function createMainPict() {
     const main = document.querySelector('#dynamicMain1');
@@ -189,30 +183,38 @@ function createMainPict() {
     const titleDiv = document.createElement('div');
     const descDiv = document.createElement('div');
     const imgEl = document.createElement('img');
-    main.appendChild(mainDiv);
-    mainDiv.appendChild(header);
-    mainDiv.appendChild(titleDiv);
-    mainDiv.appendChild(descDiv);
-    mainDiv.appendChild(imgEl);
-    titleDiv.setAttribute('id', 'apodTitle');
-    descDiv.setAttribute('id', 'apodDec');
-    main.classList.remove('main');
-    titleDiv.classList.add('apodText');
-    descDiv.classList.add('apodText');
-    header.classList.add('mainHeader');
-    header.innerText = 'Astronomy Picture of the Day';
-    axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
-        const img = res.data.url;
-        const date = res.data.date;
-        const title = res.data.title;
-        const expl = res.data.explanation;
-        descDiv.innerText = expl;
-        titleDiv.innerText = title;
-        imgEl.setAttribute('src', img);
-    })
+    (function appendElements(){
+        main.appendChild(mainDiv);
+        mainDiv.appendChild(header);
+        mainDiv.appendChild(titleDiv);
+        mainDiv.appendChild(descDiv);
+        mainDiv.appendChild(imgEl);
+    })();
+
+    (function setAttributes(){
+        titleDiv.setAttribute('id', 'apodTitle');
+        descDiv.setAttribute('id', 'apodDec');
+        main.classList.remove('main');
+        titleDiv.classList.add('apodText');
+        descDiv.classList.add('apodText');
+        header.classList.add('mainHeader');
+    })();
+
+    (function feedApodFromApi(){
+        axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
+            header.innerText = 'Astronomy Picture of the Day';
+            const img = res.data.url;
+            const date = res.data.date;
+            const title = res.data.title;
+            const description = res.data.explanation;
+            descDiv.innerText = description;
+            titleDiv.innerText = title;
+            imgEl.setAttribute('src', img);
+        })
+    })()
 }
 
-function createMainEarth() {
+function createMainEarth(){
     const main = document.querySelector('#dynamicMain2');
     const header = document.createElement('div');
     main.appendChild(header)
@@ -291,28 +293,31 @@ function search(formValue = 'nasa') {
     })
 }
 
-let formValue;
-const formImp = document.querySelector('form input')
-const searchBtn = document.querySelector('#searchBtn')
-formImp.addEventListener('input', (e) => {
-    formValue = e.target.value;
-})
 
-searchBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const main = document.querySelector('#dynamicMain4')
-    const allMain = document.querySelectorAll('.display')
-    document.querySelectorAll('main')[4].style.display = 'none';
-    for (let el of allMain) {
-        el.style.display = 'none';
-        el.innerHTML = ''
-    };
-    allMain
-    main.style.display = '';
-    const AllLi = document.querySelectorAll('.nav-item')
-    for (let el of AllLi) {
-
-        el.classList.remove('active')
-    }
-    search(formValue);
-})
+(function searchForm(){
+    let formValue;
+    const formImp = document.querySelector('form input')
+    const searchBtn = document.querySelector('#searchBtn')
+    formImp.addEventListener('input', (e) => {
+        formValue = e.target.value;
+    })
+    
+    searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const main = document.querySelector('#dynamicMain4')
+        const allMain = document.querySelectorAll('.display')
+        document.querySelectorAll('main')[4].style.display = 'none';
+        for (let el of allMain) {
+            el.style.display = 'none';
+            el.innerHTML = ''
+        };
+        allMain
+        main.style.display = '';
+        const AllLi = document.querySelectorAll('.nav-item')
+        for (let el of AllLi) {
+    
+            el.classList.remove('active')
+        }
+        search(formValue);
+    })
+})();
