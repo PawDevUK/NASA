@@ -18,11 +18,10 @@ function bootstrapRow(query) {
             let imgLink;
             let cardBody;
             (function getData(res) {
-                let randArt;
                 (function randomArticle() {
-                    randArt = Math.floor(Math.random() * 80) + 1;
+                    const randArt = Math.floor(Math.random() * 80) + 1;
+                    resDat = res.data.collection.items[randArt];
                 })();
-                resDat = res.data.collection.items[randArt];
                 title = resDat.data[0].title;
                 imgLink = resDat.links[0].href;
             })(res);
@@ -118,15 +117,6 @@ function bootstrapRow(query) {
         bootstrapRow(item);
     }
 })()
-
-
-
-
-
-
-
-
-
 
 
 function navbarActive() {
