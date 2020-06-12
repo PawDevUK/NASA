@@ -81,7 +81,7 @@ function bootstrapRow(query) {
             })()
         };
 
-        (function generateRandRowLayout(){
+        (function generateRandRowLayout() {
             let rowLayoutThree = [
                 [3, 5, 3],
                 [5, 3, 3],
@@ -112,13 +112,22 @@ function bootstrapRow(query) {
 
     })
 }
-bootstrapRow('SpaceX');
-bootstrapRow('Dragon');
-bootstrapRow('Earth');
-bootstrapRow('Moon');
-bootstrapRow('Sun');
-bootstrapRow('2020');
-bootstrapRow('Astronauts');
+
+(function bootstrapRowsPageLayout() {
+    for (let item of ['SpaceX', 'Dragon', 'Earth', 'Moon', 'Sun', '2020', 'Astronauts']) {
+        bootstrapRow(item);
+    }
+})()
+
+
+
+
+
+
+
+
+
+
 
 function navbarActive() {
     const AllLi = document.querySelectorAll('.nav-item');
@@ -149,6 +158,7 @@ function navbarActive() {
 function displayMain() {
     const AllLi = document.querySelectorAll('.nav-item');
     const allMain = document.querySelectorAll('main');
+
     function displayNone() {
         for (let li of AllLi) {
             li.addEventListener('click', (e) => {
