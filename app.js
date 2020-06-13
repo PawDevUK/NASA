@@ -190,12 +190,12 @@ function bootstrapRow(query) {
         })
     }
     mainTriggerDisplay(0, 4);
-    mainTriggerDisplay(1, 3, createMainPict);
+    mainTriggerDisplay(1, 3, createApod);
     mainTriggerDisplay(2, 2, createMainEarth);
     mainTriggerDisplay(3, 1, createMainMoon);
 })()
 
-function createMainPict() {
+function createApod() {
     const main = document.querySelector('#dynamicMain1');
     const mainDiv = document.createElement('div');
     const apodDate = document.createElement('div');
