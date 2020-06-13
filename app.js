@@ -54,6 +54,15 @@ function bootstrapRow(query) {
                 cardBody.appendChild(h5)
             })();
 
+            (function addDateTOCard(){
+                console.log(card);
+                const date = resDat.data[0].date_created.slice(0,10);
+                const divDate = document.createElement('div');
+                divDate.classList.add('cardDate');
+                divDate.innerText = date;
+                card.prepend(divDate)
+            })();
+
             (function modal() {
                 const modalImg = document.createElement('img');
                 const modalBody = document.querySelector('#modalBody');
