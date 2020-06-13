@@ -54,23 +54,23 @@ function bootstrapRow(query) {
                 cardBody.appendChild(h5)
             })();
 
-            (function addDateTOCard(){
+            (function addDateTOCard() {
                 let date;
                 let divDate;
-                (function getDate(){
-                   return date = resDat.data[0].date_created.slice(0,10);
+                (function getDate() {
+                    return date = resDat.data[0].date_created.slice(0, 10);
                 })();
-                
-                (function makeDivAppend(){
+
+                (function makeDivAppend() {
                     divDate = document.createElement('div');
                     card.prepend(divDate);
-                    (function addClass(){
+                    (function addClass() {
                         divDate.classList.add('cardDate');
                     })();
                 })();
-                (function feedCardDate(){
+                (function feedCardDate() {
                     divDate.innerText = date;
-                })()   
+                })()
             })();
 
             (function modal() {
@@ -205,13 +205,10 @@ function createMainPict() {
     const imgEl = document.createElement('img');
     (function appendElements() {
         main.appendChild(mainDiv);
-        mainDiv.appendChild(header);
-        mainDiv.appendChild(titleDiv);
-        mainDiv.appendChild(descDiv);
-        mainDiv.appendChild(imgEl);
-        mainDiv.prepend(apodDate);
+        for (let item of [header, titleDiv, descDiv, imgEl, apodDate]){
+            mainDiv.appendChild(item);
+        }
     })();
-
     (function setAttributes() {
         titleDiv.setAttribute('id', 'apodTitle');
         descDiv.setAttribute('id', 'apodDec');
@@ -219,20 +216,15 @@ function createMainPict() {
         titleDiv.classList.add('apodText');
         descDiv.classList.add('apodText');
         header.classList.add('mainHeader');
-        apodDate.setAttribute('id','apodDate');
+        apodDate.setAttribute('id', 'apodDate');
     })();
-
     (function feedApodFromApi() {
         axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
             header.innerText = 'Astronomy Picture of the Day';
-            const img = res.data.url;
-            const date = res.data.date;
-            const title = res.data.title;
-            const description = res.data.explanation;
-            descDiv.innerText = description;
-            titleDiv.innerText = title;
-            imgEl.setAttribute('src', img);
-            apodDate.innerText = date
+            descDiv.innerText = res.data.explanation;
+            titleDiv.innerText = res.data.title;
+            imgEl.setAttribute('src', res.data.url);
+            apodDate.innerText = res.data.date;
         })
     })()
 }
