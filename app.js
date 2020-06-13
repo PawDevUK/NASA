@@ -55,12 +55,21 @@ function bootstrapRow(query) {
             })();
 
             (function addDateTOCard(){
-                console.log(card);
-                const date = resDat.data[0].date_created.slice(0,10);
-                const divDate = document.createElement('div');
-                divDate.classList.add('cardDate');
-                divDate.innerText = date;
-                card.prepend(divDate)
+                let date;
+                let divDate;
+                (function getDate(){
+                   return date = resDat.data[0].date_created.slice(0,10);
+                })();
+                (function makeDivAppend(){
+                    divDate = document.createElement('div');
+                    card.prepend(divDate);
+                    (function addClass(){
+                        divDate.classList.add('cardDate');
+                    })();
+                })();
+                (function feedCardDate(){
+                    divDate.innerText = date;
+                })()   
             })();
 
             (function modal() {
