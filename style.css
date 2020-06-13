@@ -101,6 +101,7 @@ header img {
 }
 
 .card {
+    font-family: 'Oswald', sans-serif;
     border-radius: 0px !important;
     transition: all .2s ease-in-out;
     text-align: center;
