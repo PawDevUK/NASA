@@ -109,7 +109,14 @@ header img {
     background-color: #ffffff !important;
     padding: 0px !important;
 }
-
+.cardDate{
+    right: 0px;
+    border-radius: 0px 0px 0px 5px;
+    position: absolute;
+    width: 100px;
+    background-color: #007bff7a;
+    color: #fff;
+}
 .card:hover {
     transform: scale(1.0200);
 }
