@@ -27,6 +27,7 @@ header img {
 }
 
 #dynamicMain1 img {
+    
     width: 100%;
     margin-bottom: 20px;
 }
@@ -38,6 +39,16 @@ header img {
 
 #apodTitle {
     font-size: 20px;
+}
+#apodDate{
+    right: 65px;
+    top: 507px;
+    text-align: center;
+    border-radius: 0px 0px 0px 4px;
+    position: absolute;
+    width: 100px;
+    background-color: #007bff7a;
+    color: #fff;
 }
 .main {
     display: flex;
@@ -112,7 +123,7 @@ header img {
 }
 .cardDate{
     right: 0px;
-    border-radius: 0px 0px 0px 5px;
+    border-radius: 0px 0px 0px 4px;
     position: absolute;
     width: 100px;
     background-color: #007bff7a;

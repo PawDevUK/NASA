@@ -60,6 +60,7 @@ function bootstrapRow(query) {
                 (function getDate(){
                    return date = resDat.data[0].date_created.slice(0,10);
                 })();
+                
                 (function makeDivAppend(){
                     divDate = document.createElement('div');
                     card.prepend(divDate);
@@ -197,6 +198,7 @@ function bootstrapRow(query) {
 function createMainPict() {
     const main = document.querySelector('#dynamicMain1');
     const mainDiv = document.createElement('div');
+    const apodDate = document.createElement('div');
     const header = document.createElement('div');
     const titleDiv = document.createElement('div');
     const descDiv = document.createElement('div');
@@ -207,6 +209,7 @@ function createMainPict() {
         mainDiv.appendChild(titleDiv);
         mainDiv.appendChild(descDiv);
         mainDiv.appendChild(imgEl);
+        mainDiv.prepend(apodDate);
     })();
 
     (function setAttributes() {
@@ -216,6 +219,7 @@ function createMainPict() {
         titleDiv.classList.add('apodText');
         descDiv.classList.add('apodText');
         header.classList.add('mainHeader');
+        apodDate.setAttribute('id','apodDate');
     })();
 
     (function feedApodFromApi() {
@@ -228,6 +232,7 @@ function createMainPict() {
             descDiv.innerText = description;
             titleDiv.innerText = title;
             imgEl.setAttribute('src', img);
+            apodDate.innerText = date
         })
     })()
 }
