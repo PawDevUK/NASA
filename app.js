@@ -8,7 +8,6 @@ function bootstrapRow(query) {
             element.appendChild(row)
             return row
         })();
-
         function makeCardAppend(width, res) {
             let resDat;
             let title;
@@ -293,7 +292,6 @@ function createDynamicMain(targetMain,headerText, apiQuery='nasa',iFrom,iTo = -1
         main.style.display = '';
         const AllLi = document.querySelectorAll('.nav-item')
         for (let el of AllLi) {
-
             el.classList.remove('active')
         }
         createDynamicMain(4,`Search for: ${formValue.toUpperCase()}`, formValue,0 , -1)
