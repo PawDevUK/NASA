@@ -132,8 +132,8 @@ function bootstrapRow(query) {
 }
 
 (function bootstrapSectionPageLayout() {
-    for (let item of ['SpaceX', 'Dragon', 'Earth', 'Moon', 'Sun', '2020', 'Astronauts']) {
-        bootstrapRow(item);
+    for (let item = 0 ; item < 5; item++) {
+        bootstrapRow('spacex');
     }
 })();
 
