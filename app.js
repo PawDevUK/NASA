@@ -238,7 +238,7 @@ function createApod() {
                             descDiv.innerText = res.data.explanation;
                             titleDiv.innerText = res.data.title;
                             imgEl.setAttribute('src', res.data.url);
-                            apodDate.innerText = `Back in time to: ${res.data.date}`;
+                            // apodDate.innerText = `Back in time to: ${res.data.date}`;
                         })
                     })()
                 }
