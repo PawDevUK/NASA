@@ -134,11 +134,11 @@ header img {
 }
 
 .cardDate {
-    font-size: 14px;
+    font-size: 11px;
     right: 0px;
     border-radius: 0px 0px 0px 4px;
     position: absolute;
-    width: 70px;
+    width: 60px;
     background-color: #007bff7a;
     color: #fff;
 }
