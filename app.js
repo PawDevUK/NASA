@@ -180,19 +180,19 @@ function bootstrapRow(query) {
         document.querySelector(`#dynamicMain${select}`).innerHTML = '';
     }
 
-    function mainTriggerDisplay(button, main, func) {
-        AllLi[button].addEventListener('click', (e) => {
+    function mainTriggerDisplay(button, main, func,q,w,e,r,t) {
+        AllLi[button].addEventListener('click', (event) => {
             for (let i = 1; i < 4; i++) {
                 clearDynamicMain(i);
             }
             allMain[main].style.display = '';
-            (func) ? func(): null;
+            (func) ? func(q,w,e,r,t): null;
         })
     }
     mainTriggerDisplay(0, 4);
     mainTriggerDisplay(1, 3, createApod);
-    mainTriggerDisplay(2, 2, createMainEarth);
-    mainTriggerDisplay(3, 1, createMainMoon);
+    mainTriggerDisplay(2, 2, createDynamicMain, 2,'Earth from Space','earth',18, -1);
+    mainTriggerDisplay(3, 1, createDynamicMain, 3,'Moon Pictures','moon',18,45);
 })()
 
 function createApod() {
@@ -248,15 +248,39 @@ function createApod() {
     })();
 }
 
-function createMainEarth() {
-    const main = document.querySelector('#dynamicMain2');
+// function createMainEarth() {
+//     const main = document.querySelector('#dynamicMain2');
+//     const header = document.createElement('div');
+//     main.appendChild(header)
+//     header.classList.add('mainHeader')
+//     header.innerText = 'Earth from Space'
+//     axios.get('https://images-api.nasa.gov/search?keywords=earth&media_type=image').then((res) => {
+//         const resDat = res.data.collection.items;
+//         for (let item of resDat.slice(18, -1)) {
+//             const imgDiv = document.createElement('div');
+//             const titleDiv = document.createElement('div');
+//             const imgEl = document.createElement('img');
+//             imgDiv.appendChild(titleDiv)
+//             imgDiv.appendChild(imgEl)
+//             titleDiv.classList.add('Text')
+//             imgEl.classList.add('Img')
+//             imgDiv.classList.add('Wrapper')
+//             imgEl.setAttribute('src', item.links[0].href)
+//             titleDiv.innerText = item.data[0].title
+//             main.appendChild(imgDiv)
+//         }
+//     })
+// }
+
+function createDynamicMain(targetMain,headerText,apiQuery,iFrom,iTo = -1) {
+    const main = document.querySelector(`#dynamicMain${targetMain}`);
     const header = document.createElement('div');
     main.appendChild(header)
     header.classList.add('mainHeader')
-    header.innerText = 'Earth from Space'
-    axios.get('https://images-api.nasa.gov/search?keywords=earth&media_type=image').then((res) => {
+    header.innerText = headerText 
+    axios.get(`https://images-api.nasa.gov/search?keywords=${apiQuery}&media_type=image`).then((res) => {
         const resDat = res.data.collection.items;
-        for (let item of resDat.slice(18, -1)) {
+        for (let item of resDat.slice(iFrom,iTo)) {
             const imgDiv = document.createElement('div');
             const titleDiv = document.createElement('div');
             const imgEl = document.createElement('img');
@@ -271,35 +295,34 @@ function createMainEarth() {
         }
     })
 }
+// function createMainMoon() {
+//     const main = document.querySelector('#dynamicMain3');
+//     const header = document.createElement('div');
+//     main.appendChild(header)
+//     header.classList.add('mainHeader')
+//     header.innerText = 'Moon Pictures'
+//     axios.get('https://images-api.nasa.gov/search?keywords=moon&media_type=image').then((res) => {
+//         const resDat = res.data.collection.items;
+//         let num = 0;
+//         for (let item of resDat.slice(18, 45)) {
+//             num += 1;
+//             const imgDiv = document.createElement('div');
+//             const titleDiv = document.createElement('div');
+//             const imgEl = document.createElement('img');
+//             imgDiv.appendChild(titleDiv)
+//             imgDiv.appendChild(imgEl)
+//             titleDiv.classList.add('Text')
+//             imgEl.classList.add('Img')
+//             imgDiv.classList.add('Wrapper')
+//             imgEl.setAttribute('src', item.links[0].href)
+//             imgDiv.setAttribute('id', num);
+//             titleDiv.innerText = item.data[0].title
+//             main.appendChild(imgDiv)
+//         }
 
-function createMainMoon() {
-    const main = document.querySelector('#dynamicMain3');
-    const header = document.createElement('div');
-    main.appendChild(header)
-    header.classList.add('mainHeader')
-    header.innerText = 'Moon Pictures'
-    axios.get('https://images-api.nasa.gov/search?keywords=moon&media_type=image').then((res) => {
-        const resDat = res.data.collection.items;
-        let num = 0;
-        for (let item of resDat.slice(18, 45)) {
-            num += 1;
-            const imgDiv = document.createElement('div');
-            const titleDiv = document.createElement('div');
-            const imgEl = document.createElement('img');
-            imgDiv.appendChild(titleDiv)
-            imgDiv.appendChild(imgEl)
-            titleDiv.classList.add('Text')
-            imgEl.classList.add('Img')
-            imgDiv.classList.add('Wrapper')
-            imgEl.setAttribute('src', item.links[0].href)
-            imgDiv.setAttribute('id', num);
-            titleDiv.innerText = item.data[0].title
-            main.appendChild(imgDiv)
-        }
+//     })
 
-    })
-
-}
+// }
 
 
 function search(formValue = 'nasa') {
