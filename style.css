@@ -22,12 +22,13 @@
 header img {
     width: 170px;
 }
+
 #spacexArt {
     font-size: 18px;
 }
 
 #dynamicMain1 img {
-    
+
     width: 100%;
     margin-bottom: 20px;
 }
@@ -40,20 +41,29 @@ header img {
 #apodTitle {
     font-size: 20px;
 }
-#apodDate{
-    right: 65px;
-    top: 507px;
+
+#apodDate {
+    top: 259px;
+    left: 85px;
     text-align: center;
-    border-radius: 0px 0px 0px 4px;
+    border-radius: 0px 0px 0px 0px;
     position: absolute;
     width: 100px;
-    background-color: #007bff7a;
+    background-color: #007bff;
     color: #fff;
+    font-size: 17px;
 }
+
+.biggerDate {
+    width: 220px !important;
+}
+
+
 .main {
     display: flex;
     flex-wrap: wrap;
 }
+
 .mainHeader {
     width: 100%;
     font-weight: 500;
@@ -66,6 +76,7 @@ header img {
     color: #f8f9fa;
     margin: 0px;
 }
+
 .Wrapper {
     height: 400px;
     width: 33%;
@@ -121,7 +132,8 @@ header img {
     background-color: #ffffff !important;
     padding: 0px !important;
 }
-.cardDate{
+
+.cardDate {
     right: 0px;
     border-radius: 0px 0px 0px 4px;
     position: absolute;
@@ -129,6 +141,7 @@ header img {
     background-color: #007bff7a;
     color: #fff;
 }
+
 .card:hover {
     transform: scale(1.0200);
 }
@@ -181,10 +194,11 @@ footer {
     margin-bottom: 10px;
 }
 
-#year{
+#year {
     color: #fff;
     margin: auto;
 }
+
 footer img {
     margin: 5px 27px 2px 0px;
     float: right;

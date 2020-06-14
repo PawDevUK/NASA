@@ -131,7 +131,7 @@ function bootstrapRow(query) {
     })
 }
 
-(function bootstrapRowsPageLayout() {
+(function bootstrapSectionPageLayout() {
     for (let item of ['SpaceX', 'Dragon', 'Earth', 'Moon', 'Sun', '2020', 'Astronauts']) {
         bootstrapRow(item);
     }
@@ -205,7 +205,7 @@ function createApod() {
     const imgEl = document.createElement('img');
     (function appendElements() {
         main.appendChild(mainDiv);
-        for (let item of [header, titleDiv, descDiv, imgEl, apodDate]){
+        for (let item of [header, titleDiv, descDiv, imgEl, apodDate]) {
             mainDiv.appendChild(item);
         }
     })();
@@ -218,15 +218,34 @@ function createApod() {
         header.classList.add('mainHeader');
         apodDate.setAttribute('id', 'apodDate');
     })();
+
     (function feedApodFromApi() {
         axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
-            header.innerText = 'Astronomy Picture of the Day';
-            descDiv.innerText = res.data.explanation;
-            titleDiv.innerText = res.data.title;
-            imgEl.setAttribute('src', res.data.url);
-            apodDate.innerText = res.data.date;
+            (function checkLinkForJPG() {
+                const imageLink = res.data.url.slice(-4, -1)
+                if (imageLink === 'jpg') {
+                    header.innerText = 'Astronomy Picture of the Day';
+                    descDiv.innerText = res.data.explanation;
+                    titleDiv.innerText = res.data.title;
+                    imgEl.setAttribute('src', res.data.url);
+                    apodDate.innerText = res.data.date;
+                } else {
+                    (function fallBackToMillenniumApod() {
+                        (function applyBiggerWidthForDate(){
+                            apodDate.classList.add('biggerDate')
+                        })();
+                        axios.get('https://api.nasa.gov/planetary/apod?date=2000-01-01&api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
+                            header.innerText = 'Astronomy Picture of the Day';
+                            descDiv.innerText = res.data.explanation;
+                            titleDiv.innerText = res.data.title;
+                            imgEl.setAttribute('src', res.data.url);
+                            apodDate.innerText = `Back in time to: ${res.data.date}`;
+                        })
+                    })()
+                }
+            })()
         })
-    })()
+    })();
 }
 
 function createMainEarth() {
@@ -351,4 +370,4 @@ function search(formValue = 'nasa') {
     (function feedYear() {
         document.querySelector('#year').innerText = year;
     })();
-})()
+})();
