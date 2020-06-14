@@ -248,36 +248,12 @@ function createApod() {
     })();
 }
 
-// function createMainEarth() {
-//     const main = document.querySelector('#dynamicMain2');
-//     const header = document.createElement('div');
-//     main.appendChild(header)
-//     header.classList.add('mainHeader')
-//     header.innerText = 'Earth from Space'
-//     axios.get('https://images-api.nasa.gov/search?keywords=earth&media_type=image').then((res) => {
-//         const resDat = res.data.collection.items;
-//         for (let item of resDat.slice(18, -1)) {
-//             const imgDiv = document.createElement('div');
-//             const titleDiv = document.createElement('div');
-//             const imgEl = document.createElement('img');
-//             imgDiv.appendChild(titleDiv)
-//             imgDiv.appendChild(imgEl)
-//             titleDiv.classList.add('Text')
-//             imgEl.classList.add('Img')
-//             imgDiv.classList.add('Wrapper')
-//             imgEl.setAttribute('src', item.links[0].href)
-//             titleDiv.innerText = item.data[0].title
-//             main.appendChild(imgDiv)
-//         }
-//     })
-// }
-
-function createDynamicMain(targetMain,headerText,apiQuery,iFrom,iTo = -1) {
+function createDynamicMain(targetMain,headerText, apiQuery='nasa',iFrom,iTo = -1) {
     const main = document.querySelector(`#dynamicMain${targetMain}`);
     const header = document.createElement('div');
     main.appendChild(header)
-    header.classList.add('mainHeader')
-    header.innerText = headerText 
+    header.classList.add('mainHeader');
+    (apiQuery ==='nasa')?header.innerText = 'Search for: Nasa': header.innerText = headerText;
     axios.get(`https://images-api.nasa.gov/search?keywords=${apiQuery}&media_type=image`).then((res) => {
         const resDat = res.data.collection.items;
         for (let item of resDat.slice(iFrom,iTo)) {
@@ -295,61 +271,6 @@ function createDynamicMain(targetMain,headerText,apiQuery,iFrom,iTo = -1) {
         }
     })
 }
-// function createMainMoon() {
-//     const main = document.querySelector('#dynamicMain3');
-//     const header = document.createElement('div');
-//     main.appendChild(header)
-//     header.classList.add('mainHeader')
-//     header.innerText = 'Moon Pictures'
-//     axios.get('https://images-api.nasa.gov/search?keywords=moon&media_type=image').then((res) => {
-//         const resDat = res.data.collection.items;
-//         let num = 0;
-//         for (let item of resDat.slice(18, 45)) {
-//             num += 1;
-//             const imgDiv = document.createElement('div');
-//             const titleDiv = document.createElement('div');
-//             const imgEl = document.createElement('img');
-//             imgDiv.appendChild(titleDiv)
-//             imgDiv.appendChild(imgEl)
-//             titleDiv.classList.add('Text')
-//             imgEl.classList.add('Img')
-//             imgDiv.classList.add('Wrapper')
-//             imgEl.setAttribute('src', item.links[0].href)
-//             imgDiv.setAttribute('id', num);
-//             titleDiv.innerText = item.data[0].title
-//             main.appendChild(imgDiv)
-//         }
-
-//     })
-
-// }
-
-
-function search(formValue = 'nasa') {
-    const main = document.querySelector('#dynamicMain4')
-    const header = document.createElement('div');
-    main.appendChild(header);
-    header.classList.add('mainHeader')
-    header.innerText = 'Search';
-    axios.get(`https://images-api.nasa.gov/search?q=${formValue}&media_type=image`).then((res) => {
-        const resDat = res.data.collection.items;
-        header.innerText = 'Search';
-        for (let item of resDat) {
-            const imgDiv = document.createElement('div');
-            const titleDiv = document.createElement('div');
-            const imgEl = document.createElement('img');
-            imgDiv.appendChild(titleDiv)
-            imgDiv.appendChild(imgEl)
-            titleDiv.classList.add('Text')
-            imgEl.classList.add('Img')
-            imgDiv.classList.add('Wrapper')
-            imgEl.setAttribute('src', item.links[0].href)
-            titleDiv.innerText = item.data[0].title
-            main.appendChild(imgDiv)
-        }
-    })
-}
-
 
 (function searchForm() {
     let formValue;
@@ -375,7 +296,7 @@ function search(formValue = 'nasa') {
 
             el.classList.remove('active')
         }
-        search(formValue);
+        createDynamicMain(4,`Search for: ${formValue.toUpperCase()}`, formValue,0 , -1)
     })
 })();
 
