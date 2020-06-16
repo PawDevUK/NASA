@@ -281,14 +281,15 @@ function createDynamicMain(targetMain, headerText, apiQuery = 'nasa', iFrom, iTo
     })
 }
 
-(function searchForm() {
-    let formValue;
-    const formImp = document.querySelector('form input')
-    const searchBtn = document.querySelector('#searchBtn')
-    formImp.addEventListener('input', (e) => {
-        formValue = e.target.value;
-    })
 
+(function searchForm() {
+    let formValue = 'nasa'; //default value
+    (function addListenerOnInput(){
+        const formImp = document.querySelector('form input')
+        formImp.addEventListener('input', (e) => {
+            formValue = e.target.value;
+        })
+    })()
     searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const main = document.querySelector('#dynamicMain4')
@@ -298,7 +299,6 @@ function createDynamicMain(targetMain, headerText, apiQuery = 'nasa', iFrom, iTo
             el.style.display = 'none';
             el.innerHTML = ''
         };
-        allMain
         main.style.display = '';
         const AllLi = document.querySelectorAll('.nav-item')
         for (let el of AllLi) {
