@@ -212,8 +212,6 @@ function createApod() {
         for (let item of [header, titleDiv, descDiv, imgEl]) {
             mainDiv.appendChild(item);
         }
-        console.log(titleDiv);
-        console.log(apodDate);
     })();
 
     (function setAttributes() {
