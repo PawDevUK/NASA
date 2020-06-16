@@ -196,6 +196,7 @@ function bootstrapRow(query) {
 })()
 
 function createApod() {
+    // Astronomy Picture of the Day
     const main = document.querySelector('#dynamicMain1');
     const mainDiv = document.createElement('div');
     const apodDate = document.createElement('div');
