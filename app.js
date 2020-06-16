@@ -8,6 +8,7 @@ function bootstrapRow(query) {
             element.appendChild(row)
             return row
         })();
+
         function makeCardAppend(width, res) {
             let resDat;
             let title;
@@ -131,7 +132,7 @@ function bootstrapRow(query) {
 }
 
 (function bootstrapSectionPageLayout() {
-    for (let item = 0 ; item < 5; item++) {
+    for (let item = 0; item < 5; item++) {
         bootstrapRow('spacex');
     }
 })();
@@ -179,19 +180,19 @@ function bootstrapRow(query) {
         document.querySelector(`#dynamicMain${select}`).innerHTML = '';
     }
 
-    function mainTriggerDisplay(button, main, func,q,w,e,r,t) {
+    function mainTriggerDisplay(button, main, func, q, w, e, r, t) {
         AllLi[button].addEventListener('click', (event) => {
             for (let i = 1; i < 4; i++) {
                 clearDynamicMain(i);
             }
             allMain[main].style.display = '';
-            (func) ? func(q,w,e,r,t): null;
+            (func) ? func(q, w, e, r, t): null;
         })
     }
     mainTriggerDisplay(0, 4);
     mainTriggerDisplay(1, 3, createApod);
-    mainTriggerDisplay(2, 2, createDynamicMain, 2,'Earth from Space','earth',18, -1);
-    mainTriggerDisplay(3, 1, createDynamicMain, 3,'Moon Pictures','moon',18,45);
+    mainTriggerDisplay(2, 2, createDynamicMain, 2, 'Earth from Space', 'earth', 18, -1);
+    mainTriggerDisplay(3, 1, createDynamicMain, 3, 'Moon Pictures', 'moon', 18, 45);
 })()
 
 function createApod() {
@@ -200,14 +201,20 @@ function createApod() {
     const apodDate = document.createElement('div');
     const header = document.createElement('div');
     const titleDiv = document.createElement('div');
+    const titleText = document.createElement('h5')
     const descDiv = document.createElement('div');
     const imgEl = document.createElement('img');
     (function appendElements() {
         main.appendChild(mainDiv);
-        for (let item of [header, titleDiv, descDiv, imgEl, apodDate]) {
+        titleDiv.append(titleText)
+        titleDiv.append(apodDate)
+        for (let item of [header, titleDiv, descDiv, imgEl]) {
             mainDiv.appendChild(item);
         }
+        console.log(titleDiv);
+        console.log(apodDate);
     })();
+
     (function setAttributes() {
         titleDiv.setAttribute('id', 'apodTitle');
         descDiv.setAttribute('id', 'apodDec');
@@ -219,26 +226,30 @@ function createApod() {
     })();
 
     (function feedApodFromApi() {
-        axios.get('https://api.nasa.gov/planetary/apod?api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
+        axios.get('https://api.nasa.gov/planetary/apod?&api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
+            header.innerText = 'Astronomy Picture of the Day';
             (function checkLinkForJPG() {
-                const imageLink = res.data.url.slice(-4, -1)
-                if (imageLink === 'jpg') {
-                    header.innerText = 'Astronomy Picture of the Day';
-                    descDiv.innerText = res.data.explanation;
-                    titleDiv.innerText = res.data.title;
-                    imgEl.setAttribute('src', res.data.url);
-                    apodDate.innerText = res.data.date;
+                const imageLinkExtension = res.data.url.slice(-4, -1)
+                if (imageLinkExtension === '.jp') {
+                    (function setTodaysApod() {
+                        descDiv.innerText = res.data.explanation;
+                        titleText.innerText = res.data.title;
+                        imgEl.setAttribute('src', res.data.url);
+                        apodDate.innerText = res.data.date;
+                    })()
+
                 } else {
                     (function fallBackToMillenniumApod() {
-                        (function applyBiggerWidthForDate(){
+                        (function applyBiggerWidthForDate() {
                             apodDate.classList.add('biggerDate')
                         })();
                         axios.get('https://api.nasa.gov/planetary/apod?date=2000-01-01&api_key=jAhBUnKhCqNuSoZjheFlI67NM72CDiv2gAM7F0ji&').then((res) => {
-                            header.innerText = 'Astronomy Picture of the Day';
-                            descDiv.innerText = res.data.explanation;
-                            titleDiv.innerText = res.data.title;
-                            imgEl.setAttribute('src', res.data.url);
-                            // apodDate.innerText = `Back in time to: ${res.data.date}`;
+                            (function feedMillenniumApod() {
+                                apodDate.innerText = `Back in time to: ${res.data.date}`;
+                                descDiv.innerText = res.data.explanation;
+                                titleText.innerText = res.data.title;
+                                imgEl.setAttribute('src', res.data.url);
+                            })()
                         })
                     })()
                 }
@@ -247,15 +258,15 @@ function createApod() {
     })();
 }
 
-function createDynamicMain(targetMain,headerText, apiQuery='nasa',iFrom,iTo = -1) {
+function createDynamicMain(targetMain, headerText, apiQuery = 'nasa', iFrom, iTo = -1) {
     const main = document.querySelector(`#dynamicMain${targetMain}`);
     const header = document.createElement('div');
     main.appendChild(header)
     header.classList.add('mainHeader');
-    (apiQuery ==='nasa')?header.innerText = 'Search for: Nasa': header.innerText = headerText;
+    (apiQuery === 'nasa') ? header.innerText = 'Search for: Nasa': header.innerText = headerText;
     axios.get(`https://images-api.nasa.gov/search?keywords=${apiQuery}&media_type=image`).then((res) => {
         const resDat = res.data.collection.items;
-        for (let item of resDat.slice(iFrom,iTo)) {
+        for (let item of resDat.slice(iFrom, iTo)) {
             const imgDiv = document.createElement('div');
             const titleDiv = document.createElement('div');
             const imgEl = document.createElement('img');
@@ -294,7 +305,7 @@ function createDynamicMain(targetMain,headerText, apiQuery='nasa',iFrom,iTo = -1
         for (let el of AllLi) {
             el.classList.remove('active')
         }
-        createDynamicMain(4,`Search for: ${formValue.toUpperCase()}`, formValue,0 , -1)
+        createDynamicMain(4, `Search for: ${formValue.toUpperCase()}`, formValue, 0, -1)
     })
 })();
 
