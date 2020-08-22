@@ -265,6 +265,9 @@ function createDynamicMain(targetMain, headerText, apiQuery = 'nasa', iFrom, iTo
     (apiQuery === 'nasa') ? header.innerText = 'Search for: Nasa': header.innerText = headerText;
     axios.get(`https://images-api.nasa.gov/search?keywords=${apiQuery}&media_type=image`).then((res) => {
         const resDat = res.data.collection.items;
+        console.log(resDat);
+
+
         for (let item of resDat.slice(iFrom, iTo)) {
             const imgDiv = document.createElement('div');
             const titleDiv = document.createElement('div');
@@ -276,7 +279,53 @@ function createDynamicMain(targetMain, headerText, apiQuery = 'nasa', iFrom, iTo
             imgDiv.classList.add('Wrapper')
             imgEl.setAttribute('src', item.links[0].href)
             titleDiv.innerText = item.data[0].title
-            main.appendChild(imgDiv)
+            main.appendChild(imgDiv);
+
+            (function addModalAttributes() {
+                imgDiv.setAttribute('data-toggle', 'modal')
+                imgDiv.setAttribute('data-target', '#staticBackdrop')
+            })();
+
+            (function modal() {
+                const CloseButton = document.querySelectorAll(" .ModalCloseButton")
+                const modalImg = document.createElement('img');
+                const description = document.createElement('p')
+                let modalBody = document.querySelector('#modalBody');
+                const modalTitle = document.querySelector('#staticBackdropLabel');
+
+                imgDiv.addEventListener('click', function feedAppendModal() {
+                    modalTitle.innerText = item.data[0].title;
+                    modalBody.innerText = "";
+                    modalBody.appendChild(description);
+                    modalBody.appendChild(modalImg);
+                    modalImg.setAttribute('src', item.links[0].href);
+                    modalImg.setAttribute('id', 'modalImg');
+                });
+
+                imgDiv.addEventListener('click',function clearModalDescFromLinks() {
+                    let str = item.data[0].description;
+                    if (!str.includes('<') && !str.includes('http')) {
+                        return description.innerText = str;
+                    } else if (str.includes('<')) {
+                        description.innerText = str.slice(0, str.indexOf('<'));
+                    } else if (str.includes('http')) {
+                        description.innerText = str.slice(0, str.indexOf('http'));
+                    }
+                });
+
+                (function ClearModalAttributesOnClose() {
+                    for (let button of CloseButton) {
+                        button.addEventListener('click', () => {
+                            modalImg.setAttribute('src', "");
+                        })
+                    }
+                })()
+            })()
+
+
+
+
+
         }
     })
 }
@@ -284,7 +333,7 @@ function createDynamicMain(targetMain, headerText, apiQuery = 'nasa', iFrom, iTo
 
 (function searchForm() {
     let formValue = 'nasa'; //default value
-    (function addListenerOnInput(){
+    (function addListenerOnInput() {
         const formImp = document.querySelector('form input')
         formImp.addEventListener('input', (e) => {
             formValue = e.target.value;
