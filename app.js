@@ -109,6 +109,8 @@ function bootstrapRow(query) {
                 [4, 3, 4],
                 [4, 4, 3],
             ];
+
+            
             const rowLayoutTwo = [
                 [6, 5],
                 [5, 6],
